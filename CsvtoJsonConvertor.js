@@ -3,7 +3,7 @@ const path = require('path');
 const uuidv1 = require('uuid/v1');
 const readline = require('readline');
 
-const convertCsvToJson = (inputFileName = 'customer-data.csv') => {
+const ConvertCsvToJson = (inputFileName = 'customer-data.csv') => {
 
     if (fs.existsSync('csvfiles\\' + inputFileName)) {
 
@@ -13,10 +13,8 @@ const convertCsvToJson = (inputFileName = 'customer-data.csv') => {
             console.error("Error reading file !")
         });
 
-
         let jsonKeys;
-        let jsonKeyCount = 0,
-            lineNumber = 0;
+        let lineNumber = 0;
         let customerData = [];
 
         dataInterface.on('line', function (line) {
@@ -24,9 +22,7 @@ const convertCsvToJson = (inputFileName = 'customer-data.csv') => {
             if (lineNumber == 1) {
                 console.log('File conversion under progress...');
                 jsonKeys = line.split(',');
-                jsonKeyCount = jsonKeys.length;
             }
-
             if (lineNumber > 1) {
                 let jsonValues = line.split(',');
                 let valuePosition = 0;
@@ -55,4 +51,4 @@ const convertCsvToJson = (inputFileName = 'customer-data.csv') => {
     }
 }
 
-convertCsvToJson(process.argv[2]);
+ConvertCsvToJson(process.argv[2]);
