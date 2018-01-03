@@ -5,21 +5,12 @@ const readline = require('readline');
 
 const convertCsvToJson = (inputFileName = 'customer-data.csv') => {
 
-    if (inputFileName.length == 0) {
-        console.log('Please enter a csv file name to convert');
-        return;
-    }
-
-    console.log('\n\nchecking for file existance...');
-
     if (fs.existsSync('csvfiles\\' + inputFileName)) {
-
-        console.log('---file found---');
 
         let dataInterface = readline.createInterface({
             input: fs.createReadStream('csvfiles\\' + inputFileName)
         }).on('error', (error) => {
-            console.error("Error accessing file !")
+            console.error("Error reading file !")
         });
 
 
@@ -30,10 +21,8 @@ const convertCsvToJson = (inputFileName = 'customer-data.csv') => {
 
         dataInterface.on('line', function (line) {
             lineNumber++;
-            //console.log(lineNumber +':'+ line);
             if (lineNumber == 1) {
                 console.log('File conversion under progress...');
-
                 jsonKeys = line.split(',');
                 jsonKeyCount = jsonKeys.length;
             }
